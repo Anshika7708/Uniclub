@@ -10,7 +10,6 @@ const LoginPage = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen w-full bg-sky-700">  
-     
 
       <div className="relative w-[900px] h-[550px] bg-white overflow-hidden rounded-lg shadow-lg">
         

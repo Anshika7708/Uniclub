@@ -48,7 +48,7 @@ const SigninForm = () => {
 
                 <input
                   type="submit"
-                  value="Sign in"
+                  value="Login"
                   className="mt-20 px-8 py-4 uppercase rounded-full bg-blue-900 hover:bg-blue-800 text-white font-semibold text-center block w-full focus:outline-none focus:ring focus:ring-offset-2 focus:ring-indigo-500 focus:ring-opacity-80 cursor-pointer"
                 />
               </form>
