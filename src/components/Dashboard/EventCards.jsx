@@ -98,18 +98,18 @@ export default function EventCards({ searchTerm, activeFilter, showAll, setShowA
           <div className="flex justify-between items-center ">
             <div className="flex space-x-2">
               {event.tags.map((tag) => (
-                <span key={tag} className="inline-block bg-pink-600 text-white text-xs px-2 py-1 rounded">
+                <span key={tag} className="inline-block bg-orange-400 text-white text-xs px-2 py-1 rounded">
                   {tag}
                 </span>
               ))}
             </div>
-            <span className="text-sm text-gray-400">{event.date}</span>
+            <span className="inline-block bg-pink-600 text-white text-xs px-2 py-1 rounded">{event.date}</span>
           </div>
         </motion.div>
       ))}
       {filteredEvents.length > 6 && (
         <motion.button
-          className="col-span-full mt-6 bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"
+          className="col-span-full mt-6 bg-blue-800 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => setShowAll(!showAll)}

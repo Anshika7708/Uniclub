@@ -14,7 +14,7 @@ export default function Dashboard() {
   const [showAllEvents, setShowAllEvents] = useState(false);
 
   return (
-    <div className="min-w-screen bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900 text-white p-8">
+    <div className="min-w-screen bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-500 text-white p-8">
       <main className="max-w-7xl mx-auto">
         {/* Top Navbar */}
         <div className="flex justify-between items-center mb-8">

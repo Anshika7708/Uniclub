@@ -6,7 +6,7 @@ const clubs = [
     name: "Google Developer Student Club",
     description: "Learn new technologies and collaborate on projects with peers and mentors",
     
-    image: "gdg_logo.jpg",
+    image: "/gdg_logo.jpg",
     //give code to break line after description
     
     category: "Arts",
@@ -77,7 +77,7 @@ export default function ClubCards({ searchTerm, activeFilter, showAll, setShowAl
       {displayedClubs.map((club) => (
         <motion.div
           key={club.id}
-          className="bg-gradient-to-br from-blue-800 to-fuchsia-950 rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow duration-300"
+          className="bg-gradient-to-br from-blue-700 to-fuchsia-950 rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow duration-300"
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.98 }}
         >
@@ -90,12 +90,12 @@ export default function ClubCards({ searchTerm, activeFilter, showAll, setShowAl
             <h3 className="text-xl font-semibold">{club.name}</h3>
           </div>
           <p className="text-gray-300 mb-4 h-[35%]">{club.description}</p>
-          <span className="inline-block bg-pink-600 text-white text-xs px-2 py-1 rounded">{club.category}</span>
+          <span className="inline-block bg-orange-400 text-white text-xs px-2 py-1 rounded">{club.category}</span>
         </motion.div>
       ))}
       {filteredClubs.length > 6 && (
         <motion.button
-          className="col-span-full mt-6 bg-fuchsia-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"
+          className="col-span-full mt-6 bg-blue-800 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => setShowAll(!showAll)}
