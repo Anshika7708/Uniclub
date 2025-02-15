@@ -1,10 +1,11 @@
 import { useState, useRef, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function UserProfile() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
+  const profileRef = useRef(null);
 
   const user = {
     name: "Anshika Srivastava",
@@ -12,46 +13,57 @@ export default function UserProfile() {
     profileImage: "/gdg_logo.jpg",
   };
 
-  // Close dropdown when clicking outside
+  // Handle closing when clicking outside
   useEffect(() => {
     function handleClickOutside(event) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target) &&
+        profileRef.current &&
+        !profileRef.current.contains(event.target)
+      ) {
         setIsOpen(false);
       }
     }
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
-  // Function to handle Logout
-  const handleLogout = () => {
-    navigate("/");
-  };
-
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="relative">
       {/* Profile Image Button */}
-      <button onClick={() => setIsOpen(!isOpen)} className="focus:outline-none">
+      <button
+        ref={profileRef}
+        onClick={() => setIsOpen(!isOpen)}
+        onMouseEnter={() => setIsOpen(true)}
+        className="focus:outline-none"
+      >
         <img
           src={user.profileImage}
           alt="User Profile"
-          className="w-10 h-10 rounded-full border-2 border-black"
+          className="w-10 h-10 rounded-full border-2 border-gray-400"
         />
       </button>
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 bg-indigo-900 text-gray-200 rounded-lg shadow-lg border border-purple-800">
-          <div className="px-4 py-3 border-b border-purple-800">
+        <div
+          ref={dropdownRef}
+          onMouseEnter={() => setIsOpen(true)} // Keep open while inside dropdown
+          onMouseLeave={() => setIsOpen(false)} // Close when leaving dropdown
+          className="absolute right-0 mt-2 w-48 bg-indigo-950 text-gray-200 rounded-lg shadow-xl border border-indigo-500"
+        >
+          <div className="px-4 py-3 border-b border-indigo-500">
             <p className="font-bold">{user.name}</p>
             <p className="text-sm text-gray-400">{user.email}</p>
           </div>
           <ul>
             {/* Navigate to Settings Page */}
             <li
-              className="px-4 py-2 hover:bg-purple-800 cursor-pointer"
+              className="px-4 py-2 hover:bg-purple-800 hover:text-gray-100 cursor-pointer rounded-md transition-all"
               onClick={() => {
                 setIsOpen(false);
                 navigate("/settings");
@@ -61,8 +73,11 @@ export default function UserProfile() {
             </li>
             {/* Logout Option */}
             <li
-              className="px-4 py-2 hover:bg-purple-800 cursor-pointer text-red-400 hover:text-red-300"
-              onClick={handleLogout}
+              className="px-4 py-2 hover:bg-purple-800 hover:text-gray-100 cursor-pointer text-red-400 hover:text-red-300 rounded-md transition-all"
+              onClick={() => {
+                setIsOpen(false);
+                navigate("/");
+              }}
             >
               Logout
             </li>

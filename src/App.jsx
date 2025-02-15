@@ -33,14 +33,6 @@ const App = () => {
         </Link>
       </motion.div>
 
-      {/* Settings Button */}
-      <Link
-        className="absolute bottom-10 right-10 bg-gray-800 text-white px-6 py-2 rounded-full font-bold hover:bg-gray-700 transition-all"
-        to="/settings"
-      >
-        Settings
-      </Link>
-
       {/* Decorative Elements */}
       <motion.div
         className="absolute top-10 left-10 w-20 h-20 bg-blue-500 rounded-full opacity-50"
