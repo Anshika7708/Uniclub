@@ -10,7 +10,7 @@ export default function UserProfile() {
   const user = {
     name: "Anshika Srivastava",
     email: "anshika@gmail.com",
-    profileImage: "https://tse1.mm.bing.net/th?id=OIP.aglLZhcy2jBqdlE_odpEcQHaEK&pid=Api&P=0&h=180",
+    profileImage: "/DP.jpg",
   };
 
   // Handle closing when clicking outside

@@ -21,7 +21,7 @@ export default function Dashboard() {
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
           <div className="flex items-center gap-4">
             <QuickActions />
-            <UserProfile />
+            {/* <UserProfile /> */}
           </div>
         </div>
 

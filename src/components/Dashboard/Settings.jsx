@@ -9,7 +9,11 @@ export default function Settings() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [notifications, setNotifications] = useState(true);
   const [email, setEmail] = useState("");
-  const [profile, setProfile] = useState({ name: "", bio: "", profilePicture: "" });
+  const [profile, setProfile] = useState({ 
+    name: "", 
+    bio: "", 
+    profilePicture: "/DP.jpg"
+  });
 
   const handleUpdateProfile = () => alert("Profile updated successfully!");
   const handleUpdatePassword = () => password === confirmPassword ? alert("Password updated!") : alert("Passwords do not match");
