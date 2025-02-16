@@ -6,16 +6,16 @@ const clubs = [
     name: "Google Developer Student Club",
     description: "Learn new technologies and collaborate on projects with peers and mentors",
     
-    image: "https://tse1.mm.bing.net/th?id=OIP.aglLZhcy2jBqdlE_odpEcQHaEK&pid=Api&P=0&h=180",
+    image: "/GDG.png",
     //give code to break line after description
     
     category: "Arts",
   },
   {
     id: 2,
-    name: "Debate Society",
-    description: "Enhance your public speaking and critical thinking skills",
-    image: "https://static.vecteezy.com/system/resources/thumbnails/017/207/607/small/debate-icon-simple-element-from-business-management-collection-creative-debate-icon-for-web-design-templates-infographics-and-more-vector.jpg",
+    name: "Eloquence Consortium",
+    description: "Elevate Your Eloquence | Connect | Learn | Inspire",
+    image: "/Eloquence.png",
     category: "Academic",
   },
   {
@@ -90,7 +90,7 @@ export default function ClubCards({ searchTerm, activeFilter, showAll, setShowAl
             <h3 className="text-xl font-semibold">{club.name}</h3>
           </div>
           <p className="text-gray-300 mb-4 h-[35%]">{club.description}</p>
-          <span className="inline-block bg-orange-400 text-white text-xs px-2 py-1 rounded">{club.category}</span>
+          <span className="inline-block bg-orange-500 text-white text-xs px-2 py-1 rounded">{club.category}</span>
         </motion.div>
       ))}
       {filteredClubs.length > 6 && (
