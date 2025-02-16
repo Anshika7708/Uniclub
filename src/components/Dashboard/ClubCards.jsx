@@ -6,7 +6,7 @@ const clubs = [
     name: "Google Developer Student Club",
     description: "Learn new technologies and collaborate on projects with peers and mentors",
     
-    image: "/gdg_logo.jpg",
+    image: "https://tse1.mm.bing.net/th?id=OIP.aglLZhcy2jBqdlE_odpEcQHaEK&pid=Api&P=0&h=180",
     //give code to break line after description
     
     category: "Arts",

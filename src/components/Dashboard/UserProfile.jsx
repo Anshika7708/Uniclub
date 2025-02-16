@@ -10,7 +10,7 @@ export default function UserProfile() {
   const user = {
     name: "Anshika Srivastava",
     email: "anshika@gmail.com",
-    profileImage: "/gdg_logo.jpg",
+    profileImage: "https://tse1.mm.bing.net/th?id=OIP.aglLZhcy2jBqdlE_odpEcQHaEK&pid=Api&P=0&h=180",
   };
 
   // Handle closing when clicking outside
@@ -37,8 +37,7 @@ export default function UserProfile() {
       {/* Profile Image Button */}
       <button
         ref={profileRef}
-        onClick={() => setIsOpen(!isOpen)}
-        onMouseEnter={() => setIsOpen(true)}
+        onClick={() => setIsOpen((prev) => !prev)}
         className="focus:outline-none"
       >
         <img
@@ -52,8 +51,8 @@ export default function UserProfile() {
       {isOpen && (
         <div
           ref={dropdownRef}
-          onMouseEnter={() => setIsOpen(true)} // Keep open while inside dropdown
-          onMouseLeave={() => setIsOpen(false)} // Close when leaving dropdown
+          onMouseEnter={() => setIsOpen(true)}
+          onMouseLeave={() => setIsOpen(false)}
           className="absolute right-0 mt-2 w-48 bg-indigo-950 text-gray-200 rounded-lg shadow-xl border border-indigo-500"
         >
           <div className="px-4 py-3 border-b border-indigo-500">
