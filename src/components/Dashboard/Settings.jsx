@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaUser, FaLock, FaEnvelope, FaBell, FaSignOutAlt, FaCamera, FaArrowLeft } from "react-icons/fa";
+import { FaUser, FaLock, FaEnvelope, FaBell, FaSignOutAlt, FaCamera, FaArrowLeft, FaChevronDown, FaChevronUp , FaQuestionCircle} from "react-icons/fa";
 
 export default function Settings() {
   const navigate = useNavigate();
@@ -14,10 +14,22 @@ export default function Settings() {
     bio: "", 
     profilePicture: "/DP.jpg"
   });
+  const [openQuestion, setOpenQuestion] = useState(null);
+  const [messageSent, setMessageSent] = useState(false);
+
+  const faqData = [
+    { question: "How do I join a club?", answer: "To join a club, go to the club's page and click the 'Join' button. You may need approval from the club administrator." },
+    { question: "How can I create a new club?", answer: "To create a new club, navigate to the 'Create Club' page under the Clubs section and fill out the required details." },
+    { question: "How do I reset my password?", answer: "To reset your password, click on the 'Forgot Password' link on the login page. You'll receive an email with instructions to reset your password." },
+    { question: "How can I update my profile information?", answer: "Go to the 'Profile' section in settings, update your information, and click 'Save Changes'." },
+    { question: "How do I contact a club administrator?", answer: "You can contact a club administrator by visiting the club's page and clicking on the 'Contact Admin' button." },
+  ];
+
 
   const handleUpdateProfile = () => alert("Profile updated successfully!");
   const handleUpdatePassword = () => password === confirmPassword ? alert("Password updated!") : alert("Passwords do not match");
   const handleUpdateEmail = () => alert(`Email updated to: ${email}`);
+  
   const handleLogout = () => {
     navigate("/");
   };
@@ -33,6 +45,16 @@ export default function Settings() {
     }
   };
 
+  const toggleQuestion = (index) => {
+    setOpenQuestion(openQuestion === index ? null : index); // Toggle open/close
+  };
+
+  const handleSendMessage = () => {
+    // Trigger an alert message when the "Send Message" button is clicked
+    setMessageSent(true);
+    setTimeout(() => setMessageSent(false), 3000); // Reset after 3 seconds
+  };
+
   return (
     <div className="h-screen w-screen bg-gradient-to-br from-blue-800 to-pink-800 text-white flex">
       {/* Sidebar */}
@@ -41,7 +63,7 @@ export default function Settings() {
           <FaArrowLeft className="mr-2" /> Back
         </button>
         <h2 className="text-2xl font-bold">Settings</h2>
-        {["profile", "password", "email", "notifications"].map((tab) => (
+        {["profile", "password", "email", "notifications","help"].map((tab) => (
           <button 
             key={tab} 
             className={`p-3 rounded-lg text-left ${selectedTab === tab ? "bg-indigo-700" : "hover:bg-indigo-600"}`} 
@@ -50,6 +72,7 @@ export default function Settings() {
             {tab === "password" && <><FaLock className="inline mr-2" /> Change Password</>}
             {tab === "email" && <><FaEnvelope className="inline mr-2" /> Change Email</>}
             {tab === "notifications" && <><FaBell className="inline mr-2" /> Notifications</>}
+            {tab === "help" && <><FaQuestionCircle className="inline mr-2" /> Help & Support</>}
           </button>
         ))}
         <button 
@@ -110,6 +133,33 @@ export default function Settings() {
                 <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-indigo-500 dark:peer-focus:ring-indigo-600 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-5 peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
               </label>
             </label>
+          </div>
+        )}
+        {selectedTab === "help" && (
+          <div>
+            <h2 className="text-xl font-semibold mb-4">Help & Support</h2>
+
+            {/* FAQ Section */}
+            <h3 className="text-lg font-semibold mb-2">Frequently Asked Questions</h3>
+            <div className="p-4 rounded-lg">
+              {faqData.map((item, index) => (
+                <div key={index} className="border-b border-indigo-600">
+                  <button className="w-full text-left p-3 flex justify-between items-center focus:outline-none" onClick={() => toggleQuestion(index)}>
+                    <span className="text-white">{item.question}</span>
+                    {openQuestion === index ? <FaChevronUp /> : <FaChevronDown />}
+                    </button>
+                  {openQuestion === index && <p className="p-3 text-gray-300">{item.answer}</p>}
+                </div>
+              ))}
+            </div>
+
+            {/* Contact Support Section */}
+            <h3 className="text-lg font-semibold mt-4">Contact Support</h3>
+            <input type="text" className="w-full p-3 rounded-lg bg-white/20 border border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-4" placeholder="Name" />
+            <input type="email" className="w-full p-3 rounded-lg bg-white/20 border border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-4" placeholder="Email" />
+            <textarea className="w-full p-3 rounded-lg bg-white/20 border border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-4" placeholder="Message"></textarea>
+            <button onClick={handleSendMessage} className="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-lg">Send Message</button>
+            {messageSent && <div className="text-green-500 mt-2">Message sent successfully!</div>} {/* Success message */}
           </div>
         )}
       </div>
