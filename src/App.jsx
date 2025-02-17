@@ -7,7 +7,7 @@ const App = () => {
     <div className="h-screen w-screen bg-gradient-to-br from-blue-900 via-gray-800 to-blue-700 text-white flex flex-col justify-center items-center relative overflow-hidden">
       {/* Sign-Up Button */}
       <Link
-        className="absolute top-4 right-4 bg-white text-blue-900 px-6 py-2 rounded-full font-bold hover:bg-gray-200 transition-all"
+        className="absolute top-4 right-4 bg-white text-blue-900 px-6 py-2 rounded-full font-bold hover:bg-gray-200 transition-all mr-28"
         to={"/login"}
       >
         Sign Up

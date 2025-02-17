@@ -28,7 +28,7 @@ export default function Navbar() {
             <div className="flex shrink-0 items-center">
               <img
                 alt="Your Company"
-                src="/image.jpg"
+                src="/image-removebg.png"
                 className="h-8 w-auto"
               />
             </div>
