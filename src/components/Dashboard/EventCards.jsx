@@ -16,7 +16,7 @@ const events = [
     name: "Inter-University Debate Championship",
     date: "2023-08-05",
     description: "Compete with the best debaters from universities nationwide and win exciting prizes and opportunities to showcase your talent on a larger stage",
-    image: "/placeholder.svg?height=100&width=100",
+    image: "/debate.jpg",
     tag: "Debate",
     registerLink: ""
   },
@@ -25,7 +25,7 @@ const events = [
     name: "Robotics Workshop",
     date: "2023-09-10",
     description: "Learn the basics of robotics and build your first robot with our experts in this hands-on workshop for beginners",
-    image: "/placeholder.svg?height=100&width=100",
+    image: "/robotics.jpg",
     tag: "Robotics",
     registerLink: ""
   },
@@ -34,7 +34,7 @@ const events = [
     name: "Environmental Awareness Campaign",
     date: "2023-07-22",
     description: "Join us in raising awareness about environmental issues",
-    image: "/placeholder.svg?height=100&width=100",
+    image: "/enviromental.jpg",
     tag: "Environment",
     registerLink: "",
   },

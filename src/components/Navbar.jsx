@@ -27,7 +27,7 @@ export default function Navbar() {
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex shrink-0 items-center">
               <img
-                alt="Your Company"
+                alt="Profile"
                 src="/image-removebg.png"
                 className="h-8 w-auto"
               />

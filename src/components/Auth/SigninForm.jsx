@@ -1,8 +1,16 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SigninForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault(); // prevent reload
+    // You can add Firebase login later
+    navigate("/dashboard"); // redirect to dashboard
+  };
 
   return (
     <div className="selection:bg-indigo-500 selection:text-white">
@@ -14,7 +22,7 @@ const SigninForm = () => {
                 Welcome back!
               </h1>
 
-              <form className="mt-12" action="" method="POST">
+              <form className="mt-12" onSubmit={handleSubmit}>
                 <div className="relative">
                   <input
                     id="signin-email"
@@ -52,12 +60,12 @@ const SigninForm = () => {
                   className="mt-20 px-8 py-4 uppercase rounded-full bg-blue-900 hover:bg-blue-800 text-white font-semibold text-center block w-full focus:outline-none focus:ring focus:ring-offset-2 focus:ring-indigo-500 focus:ring-opacity-80 cursor-pointer"
                 />
               </form>
+
               <a
                 href="#"
                 className="mt-4 block text-sm text-center font-medium text-indigo-600 hover:underline focus:outline-none focus:ring-2 focus:ring-indigo-500"
               >
-                {" "}
-                Forgot your password?{" "}
+                Forgot your password?
               </a>
             </div>
           </div>

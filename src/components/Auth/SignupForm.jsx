@@ -1,8 +1,16 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SignupForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault(); // prevent full page reload
+    // Here you can add Firebase signup later if needed
+    navigate("/dashboard"); // redirect to dashboard after signup
+  };
 
   return (
     <div className="selection:bg-indigo-500 selection:text-white">
@@ -14,7 +22,7 @@ const SignupForm = () => {
                 Create account
               </h1>
 
-              <form className="mt-12" action="" method="POST">
+              <form className="mt-12" onSubmit={handleSubmit}>
                 <div className="relative">
                   <input
                     id="name"

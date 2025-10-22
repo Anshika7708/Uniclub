@@ -1,14 +1,14 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router";
-// App here
+import { Link } from "react-router-dom"; // ✅ corrected import
+
 const App = () => {
   return (
     <div className="h-screen w-screen bg-gradient-to-br from-blue-900 via-gray-800 to-blue-700 text-white flex flex-col justify-center items-center relative overflow-hidden">
       {/* Sign-Up Button */}
       <Link
         className="absolute top-4 right-4 bg-white text-blue-900 px-6 py-2 rounded-full font-bold hover:bg-gray-200 transition-all mr-28"
-        to={"/login"}
+        to="/signup"  // ✅ should go to signup, not login
       >
         Sign Up
       </Link>
@@ -21,15 +21,13 @@ const App = () => {
         transition={{ duration: 1 }}
       >
         <h1 className="text-4xl md:text-6xl font-bold mb-4">Welcome to UniClub</h1>
-        <p className="text-xl md:text-2xl mb-8">
-          Explore. Connect. Thrive.
-        </p>
+        <p className="text-xl md:text-2xl mb-8">Explore. Connect. Thrive.</p>
         <p className="text-lg md:text-xl mb-12">
           Join UniClub today and explore a world of opportunities.
         </p>
         <Link
           className="bg-blue-600 hover:bg-blue-500 text-white px-8 py-3 rounded-full font-semibold text-lg transition-all"
-          to={"/login"}
+          to="/login"  // ✅ "Get Started" button goes to login
         >
           Get Started
         </Link>
