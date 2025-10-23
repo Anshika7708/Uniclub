@@ -50,14 +50,14 @@ const clubs = [
     id: 7,
     name: "Coding Club",
     description: "Learn programming languages and work on exciting projects",
-    image: "/placeholder.svg",
+    image: "/coding club.jpg",
     category: "Technology",
   },
   {
     id: 8,
     name: "Book Club",
     description: "Discuss literature and share your love for reading",
-    image: "/placeholder.svg",
+    image: "/book club.jpg",
     category: "Academic",
   },
 ]
