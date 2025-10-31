@@ -1,5 +1,5 @@
 import { motion } from "framer-motion"
-import { Plus, UserPlus } from "lucide-react"
+import { Plus } from "lucide-react"
 
 export default function QuickActions() {
   return (
@@ -16,14 +16,6 @@ export default function QuickActions() {
       >
         <Plus size={16} className="mr-2" />
         Create Event
-      </motion.button>
-      <motion.button
-        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        <UserPlus size={16} className="mr-2" />
-        Join Club
       </motion.button>
     </motion.div>
   )

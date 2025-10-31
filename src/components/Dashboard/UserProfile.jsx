@@ -1,17 +1,40 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../../lib/firebase";
 
 export default function UserProfile() {
   const [isOpen, setIsOpen] = useState(false);
+  const [userInfo, setUserInfo] = useState({
+    name: "",
+    email: ""
+  });
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
   const profileRef = useRef(null);
 
-  const user = {
-    name: "Anshika Srivastava",
-    email: "anshika@gmail.com",
-    profileImage: "/DP.jpg",
-  };
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user && user.email) {
+        // Get username from email (part before @)
+        const username = user.email.split('@')[0];
+        // Capitalize first letter of each word and handle special characters
+        const formattedName = username
+          .split(/[._-]/)
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+          .join(' ');
+        
+        setUserInfo({
+          name: formattedName,
+          email: user.email
+        });
+      } else {
+        // If not logged in, redirect to login
+        navigate('/login');
+      }
+    });
+
+    return () => unsubscribe();
+  }, [navigate]);
 
   // Handle closing when clicking outside
   useEffect(() => {
@@ -40,11 +63,11 @@ export default function UserProfile() {
         onClick={() => setIsOpen((prev) => !prev)}
         className="focus:outline-none"
       >
-        <img
-          src={user.profileImage}
-          alt="User Profile"
-          className="w-10 h-10 rounded-full border-2 border-gray-400"
-        />
+        <div className="w-10 h-10 rounded-full border-2 border-gray-400 bg-indigo-600 flex items-center justify-center">
+          <span className="text-white text-lg font-medium">
+            {userInfo.name.charAt(0)}
+          </span>
+        </div>
       </button>
 
       {/* Dropdown Menu */}
@@ -56,8 +79,8 @@ export default function UserProfile() {
           className="absolute right-0 mt-2 w-48 bg-indigo-950 text-gray-200 rounded-lg shadow-xl border border-indigo-500"
         >
           <div className="px-4 py-3 border-b border-indigo-500">
-            <p className="font-bold">{user.name}</p>
-            <p className="text-sm text-gray-400">{user.email}</p>
+            <p className="font-bold">{userInfo.name}</p>
+            <p className="text-sm text-gray-400">{userInfo.email}</p>
           </div>
           <ul>
             {/* Navigate to Settings Page */}
@@ -73,9 +96,14 @@ export default function UserProfile() {
             {/* Logout Option */}
             <li
               className="px-4 py-2 hover:bg-purple-800 hover:text-gray-100 cursor-pointer text-red-400 hover:text-red-300 rounded-md transition-all"
-              onClick={() => {
-                setIsOpen(false);
-                navigate("/");
+              onClick={async () => {
+                try {
+                  await auth.signOut();
+                  setIsOpen(false);
+                  navigate("/login");
+                } catch (error) {
+                  console.error("Error signing out:", error);
+                }
               }}
             >
               Logout

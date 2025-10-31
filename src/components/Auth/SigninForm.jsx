@@ -1,15 +1,25 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../lib/firebase';
 
 const SigninForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault(); // prevent reload
-    // You can add Firebase login later
-    navigate("/dashboard"); // redirect to dashboard
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      navigate("/dashboard");
+    } catch (err) {
+      console.error("Login error:", err);
+      setError(err.message);
+    }
   };
 
   return (
@@ -23,13 +33,17 @@ const SigninForm = () => {
               </h1>
 
               <form className="mt-12" onSubmit={handleSubmit}>
+                {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
                 <div className="relative">
                   <input
                     id="signin-email"
                     name="email"
-                    type="text"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-indigo-600"
                     placeholder="john@doe.com"
+                    required
                   />
                   <label
                     htmlFor="email"
@@ -43,8 +57,11 @@ const SigninForm = () => {
                     id="signin-password"
                     type="password"
                     name="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-indigo-600"
                     placeholder="Password"
+                    required
                   />
                   <label
                     htmlFor="password"
@@ -60,13 +77,6 @@ const SigninForm = () => {
                   className="mt-20 px-8 py-4 uppercase rounded-full bg-blue-900 hover:bg-blue-800 text-white font-semibold text-center block w-full focus:outline-none focus:ring focus:ring-offset-2 focus:ring-indigo-500 focus:ring-opacity-80 cursor-pointer"
                 />
               </form>
-
-              <a
-                href="#"
-                className="mt-4 block text-sm text-center font-medium text-indigo-600 hover:underline focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              >
-                Forgot your password?
-              </a>
             </div>
           </div>
         </div>

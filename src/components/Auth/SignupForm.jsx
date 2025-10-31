@@ -1,15 +1,25 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../lib/firebase';
 
 const SignupForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault(); // prevent full page reload
-    // Here you can add Firebase signup later if needed
-    navigate("/dashboard"); // redirect to dashboard after signup
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      navigate("/dashboard");
+    } catch (err) {
+      console.error("Signup error:", err);
+      setError(err.message);
+    }
   };
 
   return (
@@ -23,28 +33,18 @@ const SignupForm = () => {
               </h1>
 
               <form className="mt-12" onSubmit={handleSubmit}>
-                <div className="relative">
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-indigo-600"
-                    placeholder="Name"
-                  />
-                  <label
-                    htmlFor="name"
-                    className="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
-                  >
-                    Name
-                  </label>
-                </div>
+               
+                {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
                 <div className="mt-10 relative">
                   <input
                     id="email"
                     name="email"
-                    type="text"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-indigo-600"
                     placeholder="john@doe.com"
+                    required
                   />
                   <label
                     htmlFor="email"
@@ -58,8 +58,12 @@ const SignupForm = () => {
                     id="password"
                     type="password"
                     name="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-indigo-600"
                     placeholder="Password"
+                    required
+                    minLength="6"
                   />
                   <label
                     htmlFor="password"
