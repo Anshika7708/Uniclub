@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaLock, FaSignOutAlt, FaArrowLeft, FaChevronDown, FaChevronUp, FaQuestionCircle } from "react-icons/fa";
+import { FaLock, FaSignOutAlt, FaArrowLeft, FaChevronDown, FaChevronUp, FaQuestionCircle, FaEye, FaEyeSlash } from "react-icons/fa";
+import { auth } from '../../lib/firebase';
+import { updatePassword } from 'firebase/auth';
 
 export default function Settings() {
   const navigate = useNavigate();
   const [selectedTab, setSelectedTab] = useState("password");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [openQuestion, setOpenQuestion] = useState(null);
-  const [messageSent, setMessageSent] = useState(false);
 
   const faqData = [
     { question: "How do I join a club?", answer: "To join a club, go to the club's page and click the 'Join' button. You may need approval from the club administrator." },
@@ -19,20 +21,58 @@ export default function Settings() {
   ];
 
 
-  const handleUpdatePassword = () => password === confirmPassword ? alert("Password updated!") : alert("Passwords do not match");
+  const handleUpdatePassword = async () => {
+    if (!password || !confirmPassword) {
+      alert("Please fill in both password fields");
+      return;
+    }
+    
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    if (password.length < 6) {
+      alert("Password should be at least 6 characters long");
+      return;
+    }
+
+    try {
+      const user = auth.currentUser;
+      if (!user) {
+        alert("You must be logged in to change your password");
+        navigate("/login");
+        return;
+      }
+
+      await updatePassword(user, password);
+      alert("Password updated successfully! Please login with your new password.");
+      await auth.signOut();
+      navigate("/login");
+    } catch (error) {
+      console.error("Error updating password:", error);
+      if (error.code === "auth/requires-recent-login") {
+        alert("For security reasons, please sign in again before changing your password");
+        await auth.signOut();
+        navigate("/login");
+      } else {
+        alert(error.message || "Failed to update password. Please try again.");
+      }
+    }
+  };
   
-  const handleLogout = () => {
-    navigate("/");
+  const handleLogout = async () => {
+    try {
+      await auth.signOut();
+      navigate("/");
+    } catch (error) {
+      console.error("Error signing out:", error);
+      navigate("/");
+    }
   };
 
   const toggleQuestion = (index) => {
     setOpenQuestion(openQuestion === index ? null : index); // Toggle open/close
-  };
-
-  const handleSendMessage = () => {
-    // Trigger an alert message when the "Send Message" button is clicked
-    setMessageSent(true);
-    setTimeout(() => setMessageSent(false), 3000); // Reset after 3 seconds
   };
 
   return (
@@ -64,8 +104,31 @@ export default function Settings() {
         {selectedTab === "password" && (
           <div>
             <h2 className="text-xl font-semibold mb-4">Change Password</h2>
-            <input type="password" className="w-full p-3 rounded-lg bg-white/20 border border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-4" placeholder="New Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            <input type="password" className="w-full p-3 rounded-lg bg-white/20 border border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-4" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+            <div className="relative mb-4">
+              <input 
+                type={showPassword ? "text" : "password"} 
+                className="w-full p-3 rounded-lg bg-white/20 border border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+                placeholder="New Password" 
+                value={password} 
+                onChange={(e) => setPassword(e.target.value)} 
+              />
+              <button
+                type="button"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
+              </button>
+            </div>
+            <div className="mb-4">
+              <input 
+                type="password"
+                className="w-full p-3 rounded-lg bg-white/20 border border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+                placeholder="Confirm Password" 
+                value={confirmPassword} 
+                onChange={(e) => setConfirmPassword(e.target.value)} 
+              />
+            </div>
             <button onClick={handleUpdatePassword} className="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-lg">Update Password</button>
           </div>
         )}
@@ -86,14 +149,6 @@ export default function Settings() {
                 </div>
               ))}
             </div>
-
-            {/* Contact Support Section */}
-            <h3 className="text-lg font-semibold mt-4">Contact Support</h3>
-            <input type="text" className="w-full p-3 rounded-lg bg-white/20 border border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-4" placeholder="Name" />
-            <input type="email" className="w-full p-3 rounded-lg bg-white/20 border border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-4" placeholder="Email" />
-            <textarea className="w-full p-3 rounded-lg bg-white/20 border border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-4" placeholder="Message"></textarea>
-            <button onClick={handleSendMessage} className="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-lg">Send Message</button>
-            {messageSent && <div className="text-green-500 mt-2">Message sent successfully!</div>} {/* Success message */}
           </div>
         )}
       </div>
