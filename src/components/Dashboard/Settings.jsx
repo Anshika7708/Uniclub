@@ -13,11 +13,9 @@ export default function Settings() {
   const [openQuestion, setOpenQuestion] = useState(null);
 
   const faqData = [
-    { question: "How do I join a club?", answer: "To join a club, go to the club's page and click the 'Join' button. You may need approval from the club administrator." },
-    { question: "How can I create a new club?", answer: "To create a new club, navigate to the 'Create Club' page under the Clubs section and fill out the required details." },
-    { question: "How do I reset my password?", answer: "To reset your password, click on the 'Forgot Password' link on the login page. You'll receive an email with instructions to reset your password." },
-    { question: "How can I update my profile information?", answer: "Go to the 'Profile' section in settings, update your information, and click 'Save Changes'." },
-    { question: "How do I contact a club administrator?", answer: "You can contact a club administrator by visiting the club's page and clicking on the 'Contact Admin' button." },
+    { question: "How can I create a new event?", answer: "To create a new event, navigate to the 'Create Event' in Dashboard and fill out the required details then click on 'Create Event' button." },
+    { question: "How do I change my password?", answer: "To change your password, go to 'Setting', click on the 'Change Password' option. Enter new password and click on 'Update password'." },
+    { question: "How can I search clubs?", answer: "Go to the 'Dashboard', click on 'Search Bar' at the top then enter 'Club Name' you are searching for." },
   ];
 
 
@@ -134,7 +132,7 @@ export default function Settings() {
         )}
         {selectedTab === "help" && (
           <div>
-            <h2 className="text-xl font-semibold mb-4">Help & Support</h2>
+            <h2 className="text-xl font-semibold mb-4">Help</h2>
 
             {/* FAQ Section */}
             <h3 className="text-lg font-semibold mb-2">Frequently Asked Questions</h3>
