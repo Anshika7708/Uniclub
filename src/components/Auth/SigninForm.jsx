@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../lib/firebase';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { auth, db } from '../../lib/firebase';
 
 const SigninForm = () => {
   const [email, setEmail] = useState("");
@@ -14,7 +15,20 @@ const SigninForm = () => {
     setError("");
     
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      
+      // Check if user document exists, if not create it
+      const userDocRef = doc(db, "users", userCredential.user.uid);
+      const userDoc = await getDoc(userDocRef);
+      
+      if (!userDoc.exists()) {
+        await setDoc(userDocRef, {
+          email: userCredential.user.email,
+          joinedClubs: [],
+          createdAt: new Date().toISOString()
+        });
+      }
+      
       navigate("/dashboard");
     } catch (err) {
       console.error("Login error:", err);

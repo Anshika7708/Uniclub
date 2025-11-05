@@ -1,65 +1,110 @@
 import { useState, useEffect } from "react";
-import { ChevronDown, ChevronUp, Calendar, MapPin, Clock, Megaphone, Image } from "lucide-react";
+import { useParams, useNavigate } from "react-router-dom";
+import { ChevronDown, ChevronUp, Calendar, MapPin, Clock, ArrowLeft, Users } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Button } from "../ui/button";
 import { motion } from "framer-motion";
 import Modal from "../ui/modal";
-const clubData = {
-  id: 1,
-  name: "Eloquence Consortium",
-  tagline: "Developing Personality and Communication Skills",
-  logo: "/Eloquence.png",
-  description:
-    "The Eloquence Consortium is dedicated to developing personality and communication skills among university students. We provide a platform for students to enhance their public speaking, debate, and interpersonal skills through workshops, competitions, and regular practice sessions.",
-  president: {
-    name: "Jane Doe",
-    email: "jane.doe@example.com",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuxtfpGFdKTvKOD2h3DsHS6djboHVJNNTUbQ&s",
-  },
-  established: "2020-09-01",
-  category: "Cultural",
-  meetingSchedule: {
-    day: "Every Tuesday",
-    time: "6:00 PM - 8:00 PM",
-    location: "Student Center, Room 101",
-  },
-  achievements: ["Won Best Club Award 2023", "Hosted National Debate Championship"],
-  vacancies: ["Event Coordinator", "Social Media Manager"],
-  announcements: ["Next meeting on 15th March", "New workshop on public speaking coming soon!"],
-  gallery: ["QuizWuiz.jpg", "/Peer.jpg", "/DP.jpg"],
-  events: [
-    {
-      id: 1,
-      name: "Hack-O-Octo 2.0",
-      date: "",
-      description: "🐙 Hack-O-Octo 2.0 is HERE! 🚀✨\nReady to level up? This isn't just another hackathon; it's your shot at creating, competing, and conquering! Whether you're a coder, designer, or idea powerhouse, it's time to bring your A-game. 💡💻\n🌐 Sign up now: hackocto.tech 💥\n🖋 Be part of something big— register now and secure your spot!\n🔥 Why join?\n✅ Solve real-world challenges\n✅ Collaborate with tech enthusiasts\n✅ Win cool rewards 🏆\n✅ Build your network & boost your skills\n🗓 Register now! Submit your ideas before 12th March 2025!\n⏳ Don't wait—spots are limited, and you don't want to miss out! Let's innovate, one line of code at a time.",
-      image: "/Hack-o-Octo.jpg",
-      tag: "Technology",
-      registerLink: "https://hackocto.tech/"
-    },
-    {
-      id: 2,
-      name: "Inter-University Debate Championship",
-      date: "2023-08-05",
-      description: "Compete with the best debaters from universities nationwide and win exciting prizes and opportunities to showcase your talent on a larger stage",
-      image: "/placeholder.svg?height=100&width=100",
-      tag: "Debate",
-      registerLink: ""
-    },
-    
-  ]
-};
+import { clubs } from "../../data/clubsData";
+import { db, auth } from "../../lib/firebase";
+import { doc, getDoc, updateDoc, increment, arrayUnion, arrayRemove } from "firebase/firestore";
 
 export default function ClubDetailsPage() {
+  const { clubId } = useParams();
+  const navigate = useNavigate();
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [currModalId, setCurrModalId] = useState(null);
+  const [isJoined, setIsJoined] = useState(false);
+  const [memberCount, setMemberCount] = useState(0);
+  const [loading, setLoading] = useState(false);
+
+  const clubData = clubs.find(club => club.id === parseInt(clubId));
 
   useEffect(() => {
+    if (!clubData) {
+      navigate('/dashboard');
+      return;
+    }
+    
     setIsLoaded(true);
-  }, []);
+    setMemberCount(clubData.memberCount);
+    
+    // Load user's membership status
+    const loadMembershipStatus = async () => {
+      if (auth.currentUser) {
+        try {
+          const userDoc = await getDoc(doc(db, "users", auth.currentUser.uid));
+          if (userDoc.exists()) {
+            const joinedClubs = userDoc.data().joinedClubs || [];
+            setIsJoined(joinedClubs.includes(parseInt(clubId)));
+          }
+        } catch (error) {
+          console.error("Error loading membership status:", error);
+        }
+      }
+    };
+    
+    loadMembershipStatus();
+  }, [clubId, clubData, navigate]);
 
-  const [showModal, setShowModal] = useState(false)
-  const [currModalId, setCurrModalId] = useState(null)
+  if (!clubData) {
+    return null;
+  }
+
+  const handleJoinClub = async () => {
+    if (!auth.currentUser) {
+      alert("Please sign in to join clubs");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const userRef = doc(db, "users", auth.currentUser.uid);
+      const clubRef = doc(db, "clubs", clubId);
+      
+      if (isJoined) {
+        // Leave club
+        await updateDoc(userRef, {
+          joinedClubs: arrayRemove(parseInt(clubId))
+        });
+        
+        try {
+          await updateDoc(clubRef, {
+            memberCount: increment(-1)
+          });
+        } catch (error) {
+          console.log("Club document doesn't exist yet, updating local count only");
+        }
+
+        setIsJoined(false);
+        setMemberCount(prev => prev - 1);
+      } else {
+        // Join club
+        await updateDoc(userRef, {
+          joinedClubs: arrayUnion(parseInt(clubId))
+        });
+        
+        try {
+          await updateDoc(clubRef, {
+            memberCount: increment(1)
+          });
+        } catch (error) {
+          console.log("Club document doesn't exist yet, updating local count only");
+        }
+
+        setIsJoined(true);
+        setMemberCount(prev => prev + 1);
+      }
+    } catch (error) {
+      console.error("Error updating club membership:", error);
+      alert("Failed to update membership. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   function handleClick(e, id) {
     e.preventDefault();
@@ -72,13 +117,43 @@ export default function ClubDetailsPage() {
     <div className={`min-h-screen bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-500 text-white transition-opacity duration-500 ${isLoaded ? "opacity-100" : "opacity-0"}`}>
       <main className="container mx-auto px-10 py-12">
         
+        {/* Back Button */}
+        <button
+          onClick={() => navigate('/dashboard')}
+          className="flex items-center gap-2 mb-6 text-gray-300 hover:text-white transition-colors"
+        >
+          <ArrowLeft size={20} />
+          <span>Back to Dashboard</span>
+        </button>
+
         {/* Header */}
         <section className="mb-12 flex flex-col items-center text-center">
           <div className="flex items-center gap-4">
-            <img src={clubData.logo} alt="Club Logo" className="w-16 h-16 rounded-full" />
+            <img src={clubData.image} alt="Club Logo" className="w-16 h-16 rounded-full object-cover" />
           </div>
             <h1 className="text-5xl font-bold">{clubData.name}</h1>
           {clubData.tagline && <p className="text-xl text-gray-300 italic mt-2">{clubData.tagline}</p>}
+          
+          {/* Member Count and Join Button */}
+          <div className="flex items-center gap-4 mt-6">
+            <div className="flex items-center gap-2 bg-blue-800 px-4 py-2 rounded-lg">
+              <Users size={20} />
+              <span className="font-semibold">{memberCount} Members</span>
+            </div>
+            <motion.button
+              onClick={handleJoinClub}
+              disabled={loading}
+              className={`px-6 py-2 rounded-lg font-semibold transition-all duration-300 ${
+                isJoined
+                  ? "bg-red-600 hover:bg-red-700"
+                  : "bg-green-600 hover:bg-green-700"
+              } disabled:opacity-50 disabled:cursor-not-allowed`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {loading ? "Loading..." : isJoined ? "Leave Club" : "Join Club"}
+            </motion.button>
+          </div>
         </section>
 
         {/* About Section */}
@@ -167,6 +242,7 @@ export default function ClubDetailsPage() {
         </section>
 
         {/* Events Section */}
+        {clubData.events && clubData.events.length > 0 && (
         <section className="mb-12">
           <h2 className="text-3xl font-semibold mb-4">Upcoming Events</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -202,6 +278,7 @@ export default function ClubDetailsPage() {
           ))}
           </div>
         </section>
+        )}
 
         {/* Gallery Section */}
         <section className="mb-12">

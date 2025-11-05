@@ -14,7 +14,7 @@ const router = createBrowserRouter(
       <Route path="" element={<App />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/club-details" element={<ClubDetailsPage />} />
+      <Route path="/club-details/:clubId" element={<ClubDetailsPage />} />
       <Route path="/settings" element={<Settings />} /> 
 
     </Route>

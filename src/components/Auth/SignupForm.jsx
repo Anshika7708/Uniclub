@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../lib/firebase';
+import { doc, setDoc } from 'firebase/firestore';
+import { auth, db } from '../../lib/firebase';
 
 const SignupForm = () => {
   const [email, setEmail] = useState("");
@@ -14,7 +15,15 @@ const SignupForm = () => {
     setError("");
     
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      
+      // Create user document in Firestore
+      await setDoc(doc(db, "users", userCredential.user.uid), {
+        email: userCredential.user.email,
+        joinedClubs: [],
+        createdAt: new Date().toISOString()
+      });
+      
       navigate("/dashboard");
     } catch (err) {
       console.error("Signup error:", err);
