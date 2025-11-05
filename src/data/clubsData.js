@@ -33,11 +33,22 @@ export const clubs = [
       {
         id: 1,
         name: "Cloud Computing Workshop",
-        date: "2025-11-15",
-        description: "Learn about cloud platforms like AWS, Azure, and GCP in this hands-on workshop.",
+        date: "2026-02-15",
+        time: "2:00 PM - 5:00 PM",
+        venue: "Computer Lab, Room 305",
+        description: "Learn about cloud platforms like AWS, Azure, and GCP in this hands-on workshop. This comprehensive session will cover deployment strategies, cloud architecture, and best practices for scalable applications.",
         image: "/coding club.jpg",
         tag: "Technology",
-        registerLink: "https://example.com/register"
+        registerLink: "https://example.com/register",
+        highlights: [
+          "Hands-on experience with AWS, Azure, and GCP",
+          "Learn cloud deployment strategies",
+          "Certificate of participation",
+          "Networking with industry professionals"
+        ],
+        prerequisites: "Basic programming knowledge recommended",
+        seats: "50",
+        fees: "Free for members"
       }
     ]
   },
@@ -74,20 +85,46 @@ export const clubs = [
       {
         id: 1,
         name: "Hack-O-Octo 2.0",
-        date: "",
-        description: "🐙 Hack-O-Octo 2.0 is HERE! 🚀✨\nReady to level up? This isn't just another hackathon; it's your shot at creating, competing, and conquering!",
+        date: "2026-03-20 to 2026-03-21",
+        time: "9:00 AM - 9:00 AM (24 hours)",
+        venue: "Main Auditorium & Computer Labs",
+        description: "🐙 Hack-O-Octo 2.0 is HERE! 🚀✨\nReady to level up? This isn't just another hackathon; it's your shot at creating, competing, and conquering! Whether you're a coder, designer, or idea powerhouse, it's time to bring your A-game.\n\nJoin us for an exciting 24-hour coding marathon where innovation meets collaboration.",
         image: "/Hack-o-Octo.jpg",
         tag: "Technology",
-        registerLink: "https://hackocto.tech/"
+        registerLink: "https://hackocto.tech/",
+        highlights: [
+          "Solve real-world challenges",
+          "Collaborate with tech enthusiasts",
+          "Win prizes worth ₹50,000",
+          "Build your network & boost your skills",
+          "Free meals and refreshments",
+          "Mentorship from industry experts"
+        ],
+        prerequisites: "Team of 2-4 members required",
+        seats: "200 participants",
+        fees: "₹500 per team"
       },
       {
         id: 2,
         name: "Inter-University Debate Championship",
-        date: "2023-08-05",
-        description: "Compete with the best debaters from universities nationwide and win exciting prizes.",
+        date: "2026-04-18",
+        time: "10:00 AM - 6:00 PM",
+        venue: "Student Center Auditorium",
+        description: "Compete with the best debaters from universities nationwide and win exciting prizes and opportunities to showcase your talent on a larger stage.\n\nThis prestigious championship brings together the brightest minds for intense intellectual discourse on contemporary issues.",
         image: "/placeholder.svg?height=100&width=100",
         tag: "Debate",
-        registerLink: ""
+        registerLink: "",
+        highlights: [
+          "Compete against 20+ universities",
+          "Cash prizes for top 3 teams",
+          "Certificate of participation",
+          "Lunch and refreshments provided",
+          "Meet renowned debaters and judges",
+          "Media coverage opportunity"
+        ],
+        prerequisites: "Team of 2 members required",
+        seats: "40 teams",
+        fees: "Free entry"
       }
     ]
   },
@@ -121,7 +158,29 @@ export const clubs = [
       "New Arduino kits available for members"
     ],
     gallery: ["/coding club.jpg", "/GDG.png", "/QuizWuiz.jpg"],
-    events: []
+    events: [
+      {
+        id: 1,
+        name: "RoboWars Championship 2026",
+        date: "2026-05-22",
+        time: "10:00 AM - 4:00 PM",
+        venue: "Engineering Ground",
+        description: "Get ready for the ultimate battle of machines! RoboWars Championship brings together the best robot builders to compete in an arena of destruction and innovation.\n\nBuild your combat robot and compete for glory!",
+        image: "https://images-platform.99static.com//9pruL3GMSNpmFA6rrYtb8tlGCeU=/86x1262:1113x2290/fit-in/500x500/99designs-contests-attachments/131/131688/attachment_131688576",
+        tag: "Competition",
+        registerLink: "https://example.com/robowars",
+        highlights: [
+          "Cash prizes worth ₹30,000",
+          "Weight category: 5kg and 10kg",
+          "Live audience and commentary",
+          "Expert judges from industry",
+          "Winners get mentorship opportunities"
+        ],
+        prerequisites: "Team of 3-5 members with their own robot",
+        seats: "20 teams",
+        fees: "₹1000 per team"
+      }
+    ]
   },
   {
     id: 4,
@@ -153,7 +212,29 @@ export const clubs = [
       "Beach cleanup next weekend"
     ],
     gallery: ["/QuizWuiz.jpg", "/Peer.jpg", "/DP.jpg"],
-    events: []
+    events: [
+      {
+        id: 1,
+        name: "Green Campus Initiative",
+        date: "2026-01-25",
+        time: "8:00 AM - 12:00 PM",
+        venue: "Campus Grounds",
+        description: "Join us for a massive tree plantation drive and campus cleanup initiative. Let's make our campus greener and cleaner!\n\nTogether we can make a difference for our environment and future generations.",
+        image: "https://shopequo.com/cdn/shop/articles/1._anh_bia_2b83c021-34fe-465e-8a3c-520e5c73e9c5.jpg?v=1701595625&width=1600",
+        tag: "Volunteering",
+        registerLink: "",
+        highlights: [
+          "Plant 500+ trees",
+          "Breakfast and refreshments included",
+          "Certificate of participation",
+          "Community service hours",
+          "Make lasting impact on campus"
+        ],
+        prerequisites: "No prior experience needed - All welcome!",
+        seats: "100 volunteers",
+        fees: "Free"
+      }
+    ]
   },
   {
     id: 5,
@@ -185,7 +266,29 @@ export const clubs = [
       "Beginner's workshop starting next week"
     ],
     gallery: ["/coding club.jpg", "/GDG.png", "/QuizWuiz.jpg"],
-    events: []
+    events: [
+      {
+        id: 1,
+        name: "University Chess Tournament",
+        date: "2026-06-14",
+        time: "9:00 AM - 6:00 PM",
+        venue: "Student Lounge, Building A",
+        description: "Compete in our annual chess tournament and prove your strategic prowess. Open to all skill levels from beginners to advanced players.\n\nMultiple categories and exciting prizes await the champions!",
+        image: "https://upload.wikimedia.org/wikipedia/commons/6/6f/ChessSet.jpg",
+        tag: "Tournament",
+        registerLink: "https://example.com/chess",
+        highlights: [
+          "Prizes for top 3 winners",
+          "Separate categories for beginners and advanced",
+          "Rated tournament",
+          "Lunch provided",
+          "Meet and play with chess masters"
+        ],
+        prerequisites: "Individual participation",
+        seats: "64 players",
+        fees: "₹200 per person"
+      }
+    ]
   },
   {
     id: 6,
@@ -217,7 +320,30 @@ export const clubs = [
       "New hip-hop workshop this Friday"
     ],
     gallery: ["/Peer.jpg", "/DP.jpg", "/QuizWuiz.jpg"],
-    events: []
+    events: [
+      {
+        id: 1,
+        name: "Annual Dance Showcase 2026",
+        date: "2026-09-28",
+        time: "6:00 PM - 9:00 PM",
+        venue: "Main Auditorium",
+        description: "Experience the magic of movement at our Annual Dance Showcase! Watch stunning performances featuring various dance styles from classical to contemporary, hip-hop to bharatanatyam.\n\nA mesmerizing evening of rhythm, grace, and artistic expression!",
+        image: "https://www.shutterstock.com/image-photo/butterfly-600nw-152795234.jpg",
+        tag: "Performance",
+        registerLink: "",
+        highlights: [
+          "15+ dance performances",
+          "Multiple dance styles showcased",
+          "Professional lighting and sound",
+          "Special guest performances",
+          "Refreshments available",
+          "Free entry for students"
+        ],
+        prerequisites: "Open to all - No registration needed for audience",
+        seats: "500 audience capacity",
+        fees: "Free for students, ₹100 for guests"
+      }
+    ]
   },
   {
     id: 7,
@@ -249,7 +375,29 @@ export const clubs = [
       "Free Python workshop for beginners"
     ],
     gallery: ["/coding club.jpg", "/GDG.png", "/Hack-o-Octo.jpg"],
-    events: []
+    events: [
+      {
+        id: 1,
+        name: "Code Sprint 2026",
+        date: "2026-07-12",
+        time: "3:00 PM - 8:00 PM",
+        venue: "Computer Science Building, Lab 3",
+        description: "A fast-paced competitive programming event where speed and accuracy matter! Solve algorithmic challenges and compete for the top spot on the leaderboard.\n\nTest your coding skills in languages like Python, Java, C++, and JavaScript!",
+        image: "/coding club.jpg",
+        tag: "Competition",
+        registerLink: "https://example.com/codesprint",
+        highlights: [
+          "Real-time coding challenges",
+          "Multiple difficulty levels",
+          "Prizes for top performers",
+          "Learn from peer solutions",
+          "Snacks and energy drinks provided"
+        ],
+        prerequisites: "Knowledge of at least one programming language",
+        seats: "100 participants",
+        fees: "Free for club members, ₹100 for others"
+      }
+    ]
   },
   {
     id: 8,
@@ -281,6 +429,29 @@ export const clubs = [
       "Author Q&A session scheduled for next week"
     ],
     gallery: ["/book club.jpg", "/QuizWuiz.jpg", "/Peer.jpg"],
-    events: []
+    events: [
+      {
+        id: 1,
+        name: "Author Meet & Greet: Contemporary Fiction",
+        date: "2026-08-07",
+        time: "4:00 PM - 6:00 PM",
+        venue: "Library, Reading Room",
+        description: "Meet acclaimed author and have an intimate conversation about their latest novel. This is a rare opportunity to interact with a published author and gain insights into the world of creative writing.\n\nGet your books signed and ask your burning questions!",
+        image: "/book club.jpg",
+        tag: "Literary Event",
+        registerLink: "",
+        highlights: [
+          "Interactive Q&A session",
+          "Book signing opportunity",
+          "Complimentary refreshments",
+          "Limited edition bookmarks",
+          "Discussion on writing process",
+          "Networking with fellow book lovers"
+        ],
+        prerequisites: "No prerequisites - All book lovers welcome",
+        seats: "50 attendees",
+        fees: "Free"
+      }
+    ]
   }
 ];

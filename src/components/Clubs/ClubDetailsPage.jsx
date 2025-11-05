@@ -212,9 +212,8 @@ export default function ClubDetailsPage() {
             {clubData.vacancies.map((vacancy, index) => (
               <Card key={index} className="bg-gradient-to-br from-blue-700 to-fuchsia-950 text-white shadow-lg hover:scale-105 transition-transform duration-300">
                 <CardHeader><CardTitle>{vacancy}</CardTitle></CardHeader>
-                <CardContent className="p-6 flex flex-col items-center">
+                <CardContent className="p-6">
                   <p className="text-gray-200">Looking for a dedicated individual to join as {vacancy}.</p>
-                  <Button className="mt-4">Apply Now</Button>
                 </CardContent>
               </Card>
             ))}

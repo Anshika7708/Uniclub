@@ -5,74 +5,174 @@ const events = [
   {
     id: 1,
     name: "Hack-O-Octo 2.0",
-    date: "",
-    description: "🐙 Hack-O-Octo 2.0 is HERE! 🚀✨\nReady to level up? This isn't just another hackathon; it's your shot at creating, competing, and conquering! Whether you're a coder, designer, or idea powerhouse, it's time to bring your A-game. 💡💻\n🌐 Sign up now: hackocto.tech 💥\n🖋 Be part of something big— register now and secure your spot!\n🔥 Why join?\n✅ Solve real-world challenges\n✅ Collaborate with tech enthusiasts\n✅ Win cool rewards 🏆\n✅ Build your network & boost your skills\n🗓 Register now! Submit your ideas before 12th March 2025!\n⏳ Don't wait—spots are limited, and you don't want to miss out! Let's innovate, one line of code at a time.",
+    date: "2026-03-20 to 2026-03-21",
+    time: "9:00 AM - 9:00 AM (24 hours)",
+    venue: "Main Auditorium & Computer Labs",
+    description: "🐙 Hack-O-Octo 2.0 is HERE! 🚀✨\nReady to level up? This isn't just another hackathon; it's your shot at creating, competing, and conquering! Whether you're a coder, designer, or idea powerhouse, it's time to bring your A-game.\n\nJoin us for an exciting 24-hour coding marathon where innovation meets collaboration.",
     image: "/Hack-o-Octo.jpg",
     tag: "Technology",
-    registerLink: "https://hackocto.tech/"
+    registerLink: "https://hackocto.tech/",
+    highlights: [
+      "Solve real-world challenges",
+      "Collaborate with tech enthusiasts",
+      "Win prizes worth ₹50,000",
+      "Build your network & boost your skills",
+      "Free meals and refreshments",
+      "Mentorship from industry experts"
+    ],
+    prerequisites: "Team of 2-4 members required",
+    seats: "200 participants",
+    fees: "₹500 per team"
   },
   {
     id: 2,
     name: "Inter-University Debate Championship",
-    date: "2023-08-05",
-    description: "Compete with the best debaters from universities nationwide and win exciting prizes and opportunities to showcase your talent on a larger stage",
+    date: "2026-04-18",
+    time: "10:00 AM - 6:00 PM",
+    venue: "Student Center Auditorium",
+    description: "Compete with the best debaters from universities nationwide and win exciting prizes and opportunities to showcase your talent on a larger stage.\n\nThis prestigious championship brings together the brightest minds for intense intellectual discourse on contemporary issues.",
     image: "/debate.jpg",
     tag: "Debate",
-    registerLink: ""
+    registerLink: "",
+    highlights: [
+      "Compete against 20+ universities",
+      "Cash prizes for top 3 teams",
+      "Certificate of participation",
+      "Lunch and refreshments provided",
+      "Meet renowned debaters and judges",
+      "Media coverage opportunity"
+    ],
+    prerequisites: "Team of 2 members required",
+    seats: "40 teams",
+    fees: "Free entry"
   },
   {
     id: 3,
     name: "Robotics Workshop",
-    date: "2023-09-10",
-    description: "Learn the basics of robotics and build your first robot with our experts in this hands-on workshop for beginners",
+    date: "2026-05-15",
+    time: "2:00 PM - 5:00 PM",
+    venue: "Engineering Lab, Room 201",
+    description: "Learn the basics of robotics and build your first robot with our experts in this hands-on workshop for beginners. Get introduced to sensors, motors, and programming for robotics applications.",
     image: "/robotics.jpg",
     tag: "Robotics",
-    registerLink: ""
+    registerLink: "",
+    highlights: [
+      "Hands-on robot building experience",
+      "Learn Arduino programming basics",
+      "Work with sensors and actuators",
+      "Take home your robot creation",
+      "Expert guidance throughout"
+    ],
+    prerequisites: "No prior experience needed",
+    seats: "30 participants",
+    fees: "₹800 (includes kit)"
   },
   {
     id: 4,
     name: "Environmental Awareness Campaign",
-    date: "2023-07-22",
-    description: "Join us in raising awareness about environmental issues",
+    date: "2026-01-25",
+    time: "8:00 AM - 12:00 PM",
+    venue: "Campus Grounds",
+    description: "Join us in raising awareness about environmental issues through a massive tree plantation drive and campus cleanup initiative. Let's make our campus greener and cleaner together!",
     image: "/enviromental.jpg",
     tag: "Environment",
     registerLink: "",
+    highlights: [
+      "Plant 500+ trees",
+      "Breakfast and refreshments included",
+      "Certificate of participation",
+      "Community service hours",
+      "Make lasting impact on campus"
+    ],
+    prerequisites: "No prior experience needed - All welcome!",
+    seats: "100 volunteers",
+    fees: "Free"
   },
   {
     id: 5,
     name: "Chess Tournament",
-    date: "2023-08-20",
-    description: "Test your skills in our annual chess tournament",
+    date: "2026-06-14",
+    time: "9:00 AM - 6:00 PM",
+    venue: "Student Lounge, Building A",
+    description: "Test your skills in our annual chess tournament. Compete against the best chess players and prove your strategic prowess. Open to all skill levels with separate categories.",
     image: "/chess-tournament.jpg",
     tag: "Chess",
     registerLink: "",
+    highlights: [
+      "Prizes for top 3 winners",
+      "Separate categories for beginners and advanced",
+      "Rated tournament",
+      "Lunch provided",
+      "Meet and play with chess masters"
+    ],
+    prerequisites: "Individual participation",
+    seats: "64 players",
+    fees: "₹200 per person"
   },
   {
     id: 6,
     name: "Dance Showcase",
-    date: "2023-09-30",
-    description: "Experience various dance styles in our end-of-year showcase",
+    date: "2026-09-28",
+    time: "6:00 PM - 9:00 PM",
+    venue: "Main Auditorium",
+    description: "Experience various dance styles in our end-of-year showcase! Watch stunning performances featuring classical to contemporary, hip-hop to bharatanatyam. A mesmerizing evening of rhythm and artistic expression!",
     image: "/dance.jpg",
     tag: "Dance",
     registerLink: "",
+    highlights: [
+      "15+ dance performances",
+      "Multiple dance styles showcased",
+      "Professional lighting and sound",
+      "Special guest performances",
+      "Refreshments available",
+      "Free entry for students"
+    ],
+    prerequisites: "Open to all - No registration needed for audience",
+    seats: "500 audience capacity",
+    fees: "Free for students, ₹100 for guests"
   },
   {
     id: 7,
     name: "Hackathon",
-    date: "2023-10-15",
-    description: "Code your way to victory in our 24-hour hackathon",
+    date: "2026-07-12",
+    time: "3:00 PM - 8:00 PM",
+    venue: "Computer Science Building, Lab 3",
+    description: "Code your way to victory in our 24-hour hackathon. A fast-paced competitive programming event where speed and accuracy matter! Test your coding skills and compete for prizes.",
     image: "/hackathon.jpg",
     tag: "Coding",
     registerLink: "",
+    highlights: [
+      "Real-time coding challenges",
+      "Multiple difficulty levels",
+      "Prizes for top performers",
+      "Learn from peer solutions",
+      "Snacks and energy drinks provided"
+    ],
+    prerequisites: "Knowledge of at least one programming language",
+    seats: "100 participants",
+    fees: "Free for club members, ₹100 for others"
   },
   {
     id: 8,
     name: "Book Fair",
-    date: "2023-11-05",
-    description: "Discover new reads and meet authors at our annual book fair",
+    date: "2026-08-07",
+    time: "10:00 AM - 6:00 PM",
+    venue: "Library, Main Hall",
+    description: "Discover new reads and meet authors at our annual book fair. Browse through hundreds of books, attend author sessions, and enjoy exclusive discounts on your favorite titles!",
     image: "/book-fair.jpg",
     tag: "Literature",
     registerLink: "",
+    highlights: [
+      "100+ book stalls",
+      "Author meet and greet sessions",
+      "Book signing opportunities",
+      "Special discounts up to 40%",
+      "Literary quiz competitions",
+      "Refreshments available"
+    ],
+    prerequisites: "Open to all book lovers",
+    seats: "Unlimited",
+    fees: "Free entry"
   },
 ]
 
